@@ -1,5 +1,5 @@
+function change_text_png($text) {
 
-function text_to_png($text, $is_smbc = false) {
     // Check if the text is empty
     if (empty($text)) {
         return null;
@@ -8,12 +8,9 @@ function text_to_png($text, $is_smbc = false) {
     // Create a blank image with a specified width and height
     $w = 320;
     $h = 50;
-    if($is_smbc) {
-      $w = 270;
-      $h = 30;
-    }
+
     $image = imagecreatetruecolor($w, $h);
-    //$image = imagecreatefrompng (__DIR__ . '/../img/bg.png');
+
     // Set a background color (optional)
     $bgColor = imagecolorallocate($image, 255, 255, 255);
     imagefill($image, 0, 0, $bgColor);
@@ -22,14 +19,16 @@ function text_to_png($text, $is_smbc = false) {
     $textColor = imagecolorallocate($image, 0, 0, 0);
 
     // Set the font path
-    $font = __DIR__ . '/../webfonts/NotoSansJP-Regular.ttf';    
+    $font = __DIR__ . 'your_font_path.tff'; 
 
     // Check if the font file exists
     if (!file_exists($font)) {
         return null;
     }
+
     $strlen = strlen($text); // before encode
-  // apply encodign first
+    
+    // apply encodign first
     $text = mb_convert_encoding($text, "HTML-ENTITIES", "UTF-8");
     $text = preg_replace('~^(&([a-zA-Z0-9]);)~',htmlentities('${1}'),$text);
 
